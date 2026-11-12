@@ -1,0 +1,119 @@
+/* Page-only compositions. Section, feature and metric typography is shared. */
+.sar-workflow-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+
+.sar-foreman-figure {
+  container: sar-foreman / inline-size;
+  margin: 0;
+}
+.sar-foreman-composition {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  align-items: center;
+  gap: 28px;
+}
+.sar-foreman-artwork, .sar-foreman-artwork picture { display: block; min-width: 0; }
+.sar-foreman-artwork img { width: 100%; height: auto; object-fit: contain; margin: 0; }
+.rp-editorial .rp-section .sar-five-a > .rp-eyebrow { margin: 0 0 16px; font-size: var(--rp-index-size); }
+.sar-five-a-grid { display: grid; gap: 10px; margin: 0; }
+.sar-five-a-grid > div {
+  min-width: 0;
+  padding: 14px 18px;
+  border: 1px solid var(--rp-divider);
+  border-radius: 6px;
+  background: #f8f8f6;
+}
+.sar-five-a-grid dt { margin: 0; font-weight: 600; line-height: 1.3; }
+.sar-five-a-grid dd { margin: 6px 0 0; color: var(--rp-muted); font-size: 16px; line-height: 1.5; }
+.sar-metric-context { display: block; margin-top: 10px; }
+
+
+@container rp-features (max-width: 960px) {
+  .sar-workflow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@container rp-features (max-width: 520px) {
+  .sar-workflow-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@container sar-foreman (max-width: 960px) {
+  .sar-foreman-composition { grid-template-columns: minmax(0, 1fr); }
+  .sar-five-a-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; }
+}
+@container sar-foreman (max-width: 520px) {
+  .sar-five-a-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* A compact citation shares the research boundary without the section hierarchy. */
+html.research-page .rp-editorial .research-section.foreman-publication {
+  padding-block: 32px;
+  border-top: 1px solid var(--rp-divider);
+}
+.rp-editorial .foreman-publication .foreman-publication-heading {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+.foreman-publication-citation { display: grid; gap: 8px; }
+.rp-editorial .foreman-publication .foreman-publication-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+.rp-editorial .foreman-publication .foreman-publication-authors {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.rp-editorial .foreman-publication .sar-affiliations {
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: var(--rp-muted);
+}
+.foreman-publication .sar-affiliations li {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* A restrained conclusion inside the existing vision section. */
+.rp-editorial .rp-section .foreman-takeaway {
+  display: grid;
+  gap: 6px;
+  margin: 32px 0 0;
+  padding: 24px 28px;
+  border: 1px solid #EAE5E0;
+  border-left: 3px solid #C76C4E;
+  border-radius: 8px;
+  background: #F8F6F3;
+  color: #202124;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.foreman-takeaway-accent { color: #B05538; }
+
+@media (max-width: 1023px) {
+  .rp-editorial .rp-section .foreman-takeaway { font-size: 22px; }
+}
+@media (max-width: 767px) {
+  .rp-editorial .rp-section .foreman-takeaway {
+    padding: 20px;
+    font-size: 20px;
+  }
+}
+
+/* Section 02 media reuse the shared research sizing and responsive columns. */
+#method .sar-approach-media figure { margin: 0; }
+#method .sar-platform-video {
+  width: 100%;
+  max-width: 100%;
+  margin: var(--media-space) auto 0;
+}
+#method .sar-platform-video video { max-width: 100%; }
+#method .sar-platform-video h3 { margin: 0 0 16px; }

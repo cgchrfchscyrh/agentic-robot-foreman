@@ -1,0 +1,206 @@
+/* Load after page themes: one content boundary and explicit media measures,
+   independent of each project's Hero and navigation.
+   Keep these tokens on story containers, never on html, body or main. */
+html[data-project] :is(
+  .research-section,
+  .lunar-story,
+  .ss-section,
+  .ss-evidence,
+  .disinfection-section,
+  .rubble-story .story-section,
+  main > .story-section,
+  .publications,
+  .section.wrap,
+  .laser-section
+) {
+  --content-width: var(--project-content-width, 960px);
+  --page-gutter: 48px;
+  --reading-width: 100%;
+  --media-compact: 640px;
+  --media-standard: 840px;
+  --media-wide: 1040px;
+}
+
+/* Standalone templates use the same formula as research-layout.css. */
+html[data-project] :is(.disinfection-section, .rubble-story .story-section, main > .story-section, .publications) {
+  width: min(var(--content-width), calc(100% - 2 * var(--page-gutter)));
+  max-width: none;
+  margin-inline: auto;
+}
+
+/* These legacy templates keep main's reading margin for Hero breakout math.
+   Measure their story against the root container instead of adding gutters
+   inside that already-narrow main. The existing Hero geometry is untouched. */
+html:is([data-project="disinfection-robot"], [data-project="see-through-rubble"]) :is(.disinfection-section, .rubble-story .story-section) {
+  --story-width: min(var(--content-width), calc(100cqw - 2 * var(--page-gutter)));
+  width: var(--story-width);
+  margin-inline: calc((100% - var(--story-width)) / 2);
+}
+
+html[data-project] .research-section > :is(h2, h3, p),
+html[data-project] .disinfection-section > :is(h2, p),
+html[data-project] .research-subsection > p,
+html[data-project] .rubble-story .story-section > :is(h2, p) {
+  max-width: none;
+  margin-inline: 0;
+  text-align: left;
+}
+
+/* Remove nested reading measures; preserve deliberate grids and media frames. */
+html[data-project="lunar-construction"] .lunar-story {
+  --lunar-content: var(--content-width);
+  --lunar-gutter: var(--page-gutter);
+}
+html[data-project="see-through-rubble"] :where(.rubble-story .story-section) .research-wide {
+  width: 100%;
+  min-width: 0;
+  margin-inline: 0;
+}
+html[data-project="lunar-construction"] .lunar-story :is(.lunar-copy, .lunar-chart, .lunar-highlights, .lunar-excavation),
+html[data-project="subsurface"] .ss-section :is(.ss-future-intro, .ss-body),
+html[data-project="see-through-rubble"] .rubble-story .rubble-figure figcaption {
+  max-width: none;
+  margin-inline: 0;
+}
+
+/* Story rhythm is scoped below the Hero. Font sizes remain owned by each page. */
+html[data-project]:not([data-project="bim2robot"]) :is(
+  .research-section, .lunar-story > section, .ss-section, .ss-evidence,
+  .disinfection-section, .rubble-story .story-section, main > .story-section,
+  .section.wrap, .laser-section
+) { --media-space: 24px; padding-block: clamp(28px, 2.8vw, 40px); }
+
+/* Media measures are assigned to compositions, rather than every image.
+   Captions travel with their figure; nested grids retain their own proportions. */
+html[data-project="bim-laser"] .research-section > :is(.research-wide, .research-enlarge, .research-columns, .carousel-wrapper),
+html[data-project="mobile-sar-copilot"] .sar-story :is(.sar-figure, .sar-problem-gallery, .sar-results),
+html[data-project="lunar-construction"] .lunar-page :is(.lunar-comparison, .lunar-excavation, .lunar-chart, .lunar-highlights),
+html[data-project="disaster-reconnaissance"] :is(.problem-figure, .damage-selector, .mission-planning),
+html[data-project="disinfection-robot"] .disinfection-section :is(.manual-disinfection-figure, .activity-layout, .research-video, .dataset-workflow, .affordance-explorer, .material-layout, .mapping-layout, .robot-experiments),
+html[data-project="see-through-rubble"] .rubble-story :is(.rubble-problem .rubble-figure, .rubble-gallery, .rubble-evaluation .rubble-figure),
+html[data-project="ground-penetrating-rescue-robots"] :is(.section > .main-figure, .sensor-pair, .laser-pair, .interaction-demo) {
+  width: min(100%, var(--media-measure, var(--media-standard)));
+  max-width: none;
+  margin-inline: auto;
+}
+
+/* BIM laser: workflow comparison / animated example / dense pipeline /
+   accuracy comparison / small carrier photos / projection carousel. */
+html[data-project="bim-laser"] .research-section > .research-wide:has(astro-island) { --media-measure: 800px; }
+html[data-project="bim-laser"] .research-section > .research-columns { --media-measure: 880px; }
+html[data-project="bim-laser"] .research-section > .research-enlarge { --media-measure: 800px; }
+/* Explicit tracks keep both configurations side by side, including aligned
+   heading, image and description rows when one heading wraps. */
+html[data-project="bim-laser"] .research-section > .research-equipment {
+  --media-measure: 760px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto 220px auto;
+  grid-auto-flow: column;
+  gap: 16px 24px;
+}
+html[data-project="bim-laser"] .research-equipment > .research-column {
+  display: grid; grid-template-rows: subgrid; grid-row: span 3;
+}
+html[data-project="bim-laser"] .research-equipment > .research-column > :is(h3, p) { margin: 0; }
+html[data-project="bim-laser"] .research-equipment > .research-column > div {
+  display: flex; align-items: center; justify-content: center; min-width: 0;
+}
+html[data-project="bim-laser"] .carousel-wrapper { --media-measure: 760px; }
+html[data-project="bim-laser"] .research-equipment img { width: auto; max-height: 220px; }
+html[data-project="bim-laser"] .slide img { max-height: 420px; }
+
+/* SAR: contextual photo pair, compact target diagrams, deployment overview,
+   equipment pair, and the four QA examples each have a deliberate measure. */
+/* Match the reference composition: equal landscape photo stages, retaining
+   the original drawing/measurement focus positions from the page stylesheet. */
+html[data-project="mobile-sar-copilot"] .sar-story .sar-problem-gallery {
+  --media-measure: 800px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+html[data-project="mobile-sar-copilot"] #request-to-target .sar-figure { --media-measure: 640px; }
+html[data-project="mobile-sar-copilot"] .sar-story .sar-guidance-gallery { --media-measure: 800px; }
+html[data-project="mobile-sar-copilot"] .sar-story .sar-target-image { height: clamp(180px, 22vw, 260px); }
+html[data-project="mobile-sar-copilot"] .sar-story .sar-problem-image {
+  display: block; aspect-ratio: 4 / 3; height: auto;
+}
+html[data-project="mobile-sar-copilot"] .sar-story .sar-problem-image img {
+  width: 100%; height: 100%; max-width: 100%; max-height: none;
+  object-fit: cover;
+}
+
+/* Both lunar comparison videos share the existing 16:9 playback stage.
+   object-fit: contain preserves the full 4:3 NASA frame within that stage. */
+html[data-project="lunar-construction"] .lunar-comparison { --media-measure: 880px; }
+html[data-project="lunar-construction"] .lunar-excavation { --media-measure: 800px; }
+html[data-project="lunar-construction"] .lunar-chart { --media-measure: 700px; }
+html[data-project="lunar-construction"] .lunar-highlights { --media-measure: 640px; }
+
+/* Disaster evidence: keep low-resolution photos compact. The map and the
+   planning diagrams keep their existing 544px and 400px measures. */
+html[data-project="disaster-reconnaissance"] :is(.problem-figure, .damage-selector) { --media-measure: 600px; }
+html[data-project="disaster-reconnaissance"] .mission-planning { --media-measure: 760px; }
+html[data-project="disaster-reconnaissance"] .problem-figure :is(img, figcaption) { max-width: 100%; }
+
+/* Disinfection: low-resolution examples and square mapping footage need
+   smaller stages than the wide detector and motion-sequence demonstrations. */
+html[data-project="disinfection-robot"] .manual-disinfection-figure { --media-measure: 760px; }
+html[data-project="disinfection-robot"] #what .research-video { --media-measure: 800px; }
+html[data-project="disinfection-robot"] .dataset-workflow { --media-measure: 960px; }
+html[data-project="disinfection-robot"] :is(.affordance-explorer, .mapping-layout) { --media-measure: 640px; }
+html[data-project="disinfection-robot"] .mapping-layout .mapping-secondary { width: min(100%, 360px); max-width: none; }
+html[data-project="disinfection-robot"] .disinfection-section img { object-fit: contain; }
+html[data-project="disinfection-robot"] .disinfection-section .manual-disinfection-figure img { aspect-ratio: auto; }
+
+/* Rubble: keep the original scrollable scientific figures and tabbed gallery.
+   Context photography and the robustness test use the regular media measure. */
+html[data-project="see-through-rubble"] .rubble-problem .rubble-figure { --media-measure: 800px; }
+html[data-project="see-through-rubble"] .rubble-gallery { --media-measure: 880px; }
+html[data-project="see-through-rubble"] .rubble-evaluation .rubble-figure { --media-measure: 800px; }
+html[data-project="see-through-rubble"] .rubble-story .rubble-case-study > .rubble-figure:last-child:not(:nth-child(2)) {
+  width: min(100%, 840px);
+}
+html[data-project="see-through-rubble"] .rubble-story .rubble-gallery-stage { min-height: 0; }
+
+/* Proposed rescue workflow: paired platforms and diagrams stay in compact
+   cells; standalone scene illustrations and the interactive map stay regular. */
+html[data-project="ground-penetrating-rescue-robots"] .section > .main-figure { --media-measure: 760px; }
+html[data-project="ground-penetrating-rescue-robots"] .interaction-demo { --media-measure: 800px; }
+
+/* Only these label-dense research frameworks break out of the 960px text.
+   Root-container math also works inside the legacy narrow-main templates. */
+html[data-project="bim-laser"] .research-section > .research-wide:has(img[src*="pipeline_white"]),
+html[data-project="lunar-construction"] .lunar-story .lunar-workflow,
+html[data-project="see-through-rubble"] .rubble-method .rubble-step > .research-wide,
+html[data-project="see-through-rubble"] .rubble-evidence > .research-wide {
+  --framework-width: min(var(--media-wide), calc(100cqw - 2 * var(--page-gutter)));
+  width: var(--framework-width);
+  max-width: none;
+  margin-inline: calc((100% - var(--framework-width)) / 2);
+}
+
+@media (max-width: 1023px) {
+  html[data-project] :is(.research-section, .lunar-story, .ss-section, .ss-evidence, .disinfection-section, .rubble-story .story-section, main > .story-section, .publications, .section.wrap, .laser-section) {
+    --page-gutter: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  html[data-project] :is(.research-section, .lunar-story, .ss-section, .ss-evidence, .disinfection-section, .rubble-story .story-section, main > .story-section, .publications, .section.wrap, .laser-section) {
+    --page-gutter: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  html[data-project="lunar-construction"] .lunar-comparison video { aspect-ratio: auto; }
+}
+@media (max-width: 600px) {
+  html[data-project="mobile-sar-copilot"] .sar-story .sar-problem-gallery { grid-template-columns: minmax(0, 1fr); }
+  html[data-project="bim-laser"] .research-section > .research-equipment {
+    grid-template-columns: minmax(0, 1fr); grid-template-rows: none;
+    grid-auto-flow: row; row-gap: 28px;
+  }
+  html[data-project="bim-laser"] .research-equipment > .research-column { display: block; grid-row: auto; }
+  html[data-project="bim-laser"] .research-equipment > .research-column > h3 { margin-bottom: 12px; }
+  html[data-project="bim-laser"] .research-equipment > .research-column > div { min-height: 220px; }
+  html[data-project="bim-laser"] .research-equipment > .research-column > p { margin-top: 16px; }
+}

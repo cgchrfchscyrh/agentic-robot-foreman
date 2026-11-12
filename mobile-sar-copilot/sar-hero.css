@@ -1,0 +1,89 @@
+/* Keep the experiment full bleed with the complete copy group at lower left. */
+.research-page[data-project="mobile-sar-copilot"] .project-hero {
+  --hero-height: max(720px, 100svh);
+  --hero-ink: #fff;
+  --hero-scene: #111713;
+  font-family: "IBM Plex Sans Variable", sans-serif;
+}
+
+.research-page[data-project="mobile-sar-copilot"] .project-hero .hero-media-primary {
+  inset: 0;
+  display: block;
+}
+
+.research-page[data-project="mobile-sar-copilot"] .project-hero .hero-media-primary img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 64%;
+  mask-image: none;
+}
+
+.research-page[data-project="mobile-sar-copilot"] .project-hero .hero-overlay {
+  min-height: var(--hero-height);
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 32px 7vw 10vh;
+  background: linear-gradient(25deg, #111713e6, #111713b3 20%, #11171340 38%, transparent 58%);
+  text-align: left;
+}
+
+.research-page[data-project="mobile-sar-copilot"] .sar-hero-content {
+  width: min(52vw, 600px);
+  margin: 0;
+  color: #fff;
+}
+
+.research-page[data-project="mobile-sar-copilot"] .project-hero h1 {
+  max-width: 100%;
+  font-size: clamp(42px, 4.5vw, 68px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -.035em;
+  text-wrap: wrap;
+}
+.research-page[data-project="mobile-sar-copilot"] .project-hero h1 > span { display: block; }
+.research-page[data-project="mobile-sar-copilot"] .sar-hero-accent { color: #E9B49B; }
+
+.research-page[data-project="mobile-sar-copilot"] .sar-hero-subtitle {
+  max-width: min(500px, 42vw);
+  margin: 22px 0 0;
+  color: #f4f1ec;
+  font-size: clamp(18px, 1.6vw, 21px);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+
+.research-page[data-project="mobile-sar-copilot"] .sar-hero-description {
+  margin: 18px 0 0;
+  color: #f4f1ec;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+@media (max-width: 767px) {
+  .research-page[data-project="mobile-sar-copilot"] .project-hero {
+    --hero-height: max(680px, 100svh);
+  }
+  .research-page[data-project="mobile-sar-copilot"] .project-hero .hero-media-primary img {
+    object-position: 58% 50%;
+  }
+  .research-page[data-project="mobile-sar-copilot"] .project-hero .hero-overlay {
+    padding: 32px 20px 72px;
+    background: linear-gradient(0deg, #111713e6, #111713bf 28%, #11171340 52%, transparent 70%);
+  }
+  .research-page[data-project="mobile-sar-copilot"] .sar-hero-content { width: 100%; }
+  .research-page[data-project="mobile-sar-copilot"] .project-hero h1 {
+    font-size: clamp(34px, 9.5vw, 42px);
+  }
+  .research-page[data-project="mobile-sar-copilot"] .sar-hero-description { font-size: 15px; }
+  .research-page[data-project="mobile-sar-copilot"] .sar-hero-subtitle {
+    max-width: 100%;
+    margin-top: 18px;
+    font-size: 18px;
+  }
+}
